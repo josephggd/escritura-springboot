@@ -1,5 +1,6 @@
 package com.kobe2.escritura.security;
 
+import com.kobe2.escritura.enums.Authority;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +17,12 @@ public class StagingConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity https) throws Exception {
         https.authorizeHttpRequests(auth-> auth
-                .requestMatchers("/**")
-                .permitAll());
+                .requestMatchers("/swagger-ui/**").permitAll()
+                .requestMatchers("/m/**")
+                .hasAuthority(Authority.MAINTAINER.toString())
+                .requestMatchers("/p/**")
+                .hasAuthority(Authority.USER.toString())
+        );
         https.formLogin(AbstractHttpConfigurer::disable);
         https.httpBasic(AbstractHttpConfigurer::disable);
         https.csrf(AbstractHttpConfigurer::disable);
