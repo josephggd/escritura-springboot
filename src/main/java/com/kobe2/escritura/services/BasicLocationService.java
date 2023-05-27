@@ -2,7 +2,6 @@ package com.kobe2.escritura.services;
 
 import com.kobe2.escritura.entities.Location;
 import com.kobe2.escritura.repositories.LocationRepository;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +12,8 @@ import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
-public class BasicService {
+public class BasicLocationService {
     private final Logger logger = Logger.getLogger(this.getClass().toString());
-    @NonNull
     public final LocationRepository locationRepository;
     public Location findById(UUID id){
         logger.log(Level.FINEST, "findById");

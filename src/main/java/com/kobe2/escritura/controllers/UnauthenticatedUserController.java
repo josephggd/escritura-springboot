@@ -3,7 +3,8 @@ package com.kobe2.escritura.controllers;
 import com.kobe2.escritura.dtos.LocationRecord;
 import com.kobe2.escritura.entities.Location;
 import com.kobe2.escritura.exceptions.CannedStatementException;
-import com.kobe2.escritura.services.UserService;
+import com.kobe2.escritura.services.UnauthenticatedUserLocationService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -11,18 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/p")
-public class UserController {
-    private final UserService userService;
+@RequestMapping("/lu")
+@RequiredArgsConstructor
+public class UnauthenticatedUserController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().toString());
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UnauthenticatedUserLocationService unauthenticatedUserLocationService;
     @GetMapping("/author/{author}")
     public List<LocationRecord> findByAuthor(@PathVariable String author) {
         try {
-            List<Location> deviceNotes = userService.findBySignature(author);
+            List<Location> deviceNotes = unauthenticatedUserLocationService.findBySignature(author);
             return deviceNotes.stream()
                     .map(Location::toRecord)
                     .toList();
@@ -34,7 +32,7 @@ public class UserController {
     @GetMapping("/phrase")
     public List<LocationRecord> findByPhrase (@RequestParam String phrase) {
         try {
-            List<Location> deviceNotes = userService.findByBlurb(phrase);
+            List<Location> deviceNotes = unauthenticatedUserLocationService.findByBlurb(phrase);
             return deviceNotes.stream()
                     .map(Location::toRecord)
                     .toList();
@@ -49,22 +47,10 @@ public class UserController {
             @PathVariable float lon
     ) {
         try {
-            List<Location> locations = userService.findByLoc(lat, lon);
+            List<Location> locations = unauthenticatedUserLocationService.findByLoc(lat, lon);
             return locations.stream()
                     .map(Location::toRecord)
                     .toList();
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            throw new CannedStatementException();
-        }
-    }
-
-    @PostMapping("/new")
-    public String saveNewNote (
-            @RequestBody LocationRecord locationRecord
-    ) {
-        try {
-            return userService.saveNewNote(locationRecord);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             throw new CannedStatementException();
