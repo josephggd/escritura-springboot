@@ -1,4 +1,4 @@
-package com.kobe2.escritura.security;
+package com.kobe2.escrituralocs.security;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@ConditionalOnProperty(name="security.enabled", havingValue = "false")
-public class DevConfig {
+@ConditionalOnProperty(name="security.enabled", havingValue = "true")
+public class ProdConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity https) throws Exception {
         https.authorizeHttpRequests(auth-> auth

@@ -1,4 +1,4 @@
-package com.kobe2.escritura.enums;
+package com.kobe2.escrituralocs.enums;
 
 public enum Authority {
     MAINTAINER,

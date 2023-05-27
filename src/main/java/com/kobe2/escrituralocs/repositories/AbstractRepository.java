@@ -1,6 +1,6 @@
-package com.kobe2.escritura.repositories;
+package com.kobe2.escrituralocs.repositories;
 
-import com.kobe2.escritura.entities.AbstractEntity;
+import com.kobe2.escrituralocs.entities.AbstractEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

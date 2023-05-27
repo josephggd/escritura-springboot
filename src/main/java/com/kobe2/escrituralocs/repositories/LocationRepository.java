@@ -1,6 +1,6 @@
-package com.kobe2.escritura.repositories;
+package com.kobe2.escrituralocs.repositories;
 
-import com.kobe2.escritura.entities.Location;
+import com.kobe2.escrituralocs.entities.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

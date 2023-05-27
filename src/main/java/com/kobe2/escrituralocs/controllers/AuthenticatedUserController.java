@@ -1,8 +1,8 @@
-package com.kobe2.escritura.controllers;
+package com.kobe2.escrituralocs.controllers;
 
-import com.kobe2.escritura.dtos.LocationRecord;
-import com.kobe2.escritura.exceptions.CannedStatementException;
-import com.kobe2.escritura.services.AuthenticatedUserLocationService;
+import com.kobe2.escrituralocs.dtos.LocationRecord;
+import com.kobe2.escrituralocs.exceptions.CannedStatementException;
+import com.kobe2.escrituralocs.services.AuthenticatedUserLocationService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

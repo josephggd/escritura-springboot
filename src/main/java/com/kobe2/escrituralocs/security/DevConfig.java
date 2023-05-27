@@ -1,6 +1,5 @@
-package com.kobe2.escritura.security;
+package com.kobe2.escrituralocs.security;
 
-import com.kobe2.escritura.enums.Authority;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,17 +11,13 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@ConditionalOnProperty(name="security.enabled", havingValue = "true")
-public class StagingConfig {
+@ConditionalOnProperty(name="security.enabled", havingValue = "false")
+public class DevConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity https) throws Exception {
         https.authorizeHttpRequests(auth-> auth
-                .requestMatchers("/swagger-ui/**").permitAll()
-                .requestMatchers("/m/**")
-                .hasAuthority(Authority.MAINTAINER.toString())
-                .requestMatchers("/p/**")
-                .hasAuthority(Authority.USER.toString())
-        );
+                .requestMatchers("/**")
+                .permitAll());
         https.formLogin(AbstractHttpConfigurer::disable);
         https.httpBasic(AbstractHttpConfigurer::disable);
         https.csrf(AbstractHttpConfigurer::disable);

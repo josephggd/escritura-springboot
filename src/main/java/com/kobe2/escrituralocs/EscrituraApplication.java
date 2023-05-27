@@ -1,4 +1,4 @@
-package com.kobe2.escritura;
+package com.kobe2.escrituralocs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

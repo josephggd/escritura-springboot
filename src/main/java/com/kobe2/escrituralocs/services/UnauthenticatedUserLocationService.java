@@ -1,7 +1,7 @@
-package com.kobe2.escritura.services;
+package com.kobe2.escrituralocs.services;
 
-import com.kobe2.escritura.entities.Location;
-import com.kobe2.escritura.repositories.LocationRepository;
+import com.kobe2.escrituralocs.entities.Location;
+import com.kobe2.escrituralocs.repositories.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

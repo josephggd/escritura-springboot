@@ -1,6 +1,6 @@
-package com.kobe2.escritura.entities;
+package com.kobe2.escrituralocs.entities;
 
-import com.kobe2.escritura.dtos.LocationRecord;
+import com.kobe2.escrituralocs.dtos.LocationRecord;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.kobe2.escritura.entities;
+package com.kobe2.escrituralocs.entities;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
