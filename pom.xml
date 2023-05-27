@@ -11,8 +11,8 @@
     <groupId>com.kobe2</groupId>
     <artifactId>escritura-locs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>escritura</name>
-    <description>escritura</description>
+    <name>escritura-escritura</name>
+    <description>Location microservice for storing user's saved location notes</description>
     <properties>
         <java.version>17</java.version>
     </properties>
