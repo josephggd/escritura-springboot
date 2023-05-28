@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/m")
 @RequiredArgsConstructor
 public class MaintainerController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().toString());

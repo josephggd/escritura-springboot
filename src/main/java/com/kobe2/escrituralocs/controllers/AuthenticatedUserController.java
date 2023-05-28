@@ -6,24 +6,48 @@ import com.kobe2.escrituralocs.services.AuthenticatedUserLocationService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 @RestController
-@RequestMapping("/la")
 @RequiredArgsConstructor
 public class AuthenticatedUserController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().toString());
     private final AuthenticatedUserLocationService authenticatedUserLocationService;
-
-    @PostMapping("/new")
-    public String saveNewNote (
-            @RequestBody LocationRecord locationRecord
+    @PostMapping("/locs")
+    public void saveNewLoc(@RequestBody LocationRecord lr) {
+        try {
+            authenticatedUserLocationService.saveNewNote(lr);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw new CannedStatementException();
+        }
+    }
+    @GetMapping("/author/{author}")
+    public Flux<LocationRecord> findByAuthor(@PathVariable String author) {
+        try {
+            return authenticatedUserLocationService.findBySignature(author);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw new CannedStatementException();
+        }
+    }
+    @GetMapping("/phrase")
+    public Flux<LocationRecord> findByPhrase (@RequestParam String phrase) {
+        try {
+            return authenticatedUserLocationService.findByBlurb(phrase);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw new CannedStatementException();
+        }
+    }
+    @GetMapping("/loc/{lat},{lon}")
+    public Flux<LocationRecord> findByLoc(
+            @PathVariable float lat,
+            @PathVariable float lon
     ) {
         try {
-            return authenticatedUserLocationService.saveNewNote(locationRecord);
+            return authenticatedUserLocationService.findByLoc(lat, lon);
         } catch (Exception e) {
             logger.warn(e.getMessage());
             throw new CannedStatementException();

@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 @RequiredArgsConstructor
 public class MaintainerLocationService {
     private final Logger logger = Logger.getLogger(this.getClass().toString());
-    private final AuthenticatedUserLocationService authenticatedUserLocationService;
     private final BasicLocationService basicLocationService;
     private final LocationRepository locationRepository;
     public void deleteById(UUID id){
@@ -31,32 +30,32 @@ public class MaintainerLocationService {
     }
     public void deleteByWord(String phrase){
         logger.log(Level.FINEST, "deleteByWord");
-        List<Location> locations = authenticatedUserLocationService.findByBlurb(phrase);
+        List<Location> locations = locationRepository.findAllByBlurbContent(phrase);
         locationRepository.deleteAll(locations);
     }
     public void setVisibilityByWord(String phrase, boolean visibility){
         logger.log(Level.FINEST, "setVisibilityByWord");
-        List<Location> unmodifiedLocations = authenticatedUserLocationService.findByBlurb(phrase);
+        List<Location> unmodifiedLocations = locationRepository.findAllByBlurbContent(phrase);
         setVisibilityForList(unmodifiedLocations, visibility);
     }
     public void deleteByLoc(float lat, float lon){
         logger.log(Level.FINEST, "deleteByLoc");
-        List<Location> locations = authenticatedUserLocationService.findByLoc(lat, lon);
+        List<Location> locations = locationRepository.findAllByLatLonClose(lat, lon);
         locationRepository.deleteAll(locations);
     }
     public void setVisibilityByLoc(float lat, float lon, boolean visibility){
         logger.log(Level.FINEST, "setVisibilityByLoc");
-        List<Location> unmodifiedLocations = authenticatedUserLocationService.findByLoc(lat, lon);
+        List<Location> unmodifiedLocations = locationRepository.findAllByLatLonClose(lat, lon);
         setVisibilityForList(unmodifiedLocations, visibility);
     }
     public void deleteByAuthor(String author){
         logger.log(Level.FINEST, "deleteByAuthor");
-        List<Location> locations = authenticatedUserLocationService.findBySignature(author);
+        List<Location> locations = locationRepository.findBySignature(author);
         locationRepository.deleteAll(locations);
     }
     public void setVisibilityByAuthor(String author, boolean visibility){
         logger.log(Level.FINEST, "setVisibilityByWord");
-        List<Location> unmodifiedLocations = authenticatedUserLocationService.findBySignature(author);
+        List<Location> unmodifiedLocations = locationRepository.findBySignature(author);
         setVisibilityForList(unmodifiedLocations, visibility);
     }
     public void setVisibilityForList(List<Location> unmodifiedLocations, boolean visibility){
@@ -68,6 +67,4 @@ public class MaintainerLocationService {
         }
         locationRepository.saveAll(modifiedLocations);
     }
-
-
 }
